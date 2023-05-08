@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAF2EB"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/total_question"
+        android:text="مجموع الاسئلة"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:padding="24dp"
+        android:textSize="20dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/question"
+        android:text="السؤال"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14dp"
+        android:textAlignment="center"
+        android:layout_marginTop="200dp"
+      />
+
+
+    <Button
+        android:id="@+id/ans_A"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="255dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginLeft="27dp"
+        android:backgroundTint="@color/white"
+        android:text="Ans A"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+
+       />
+
+    <Button
+        android:id="@+id/ans_B"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="310dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginLeft="27dp"
+        android:backgroundTint="@color/white"
+        android:text="Ans B"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+
+        />
+
+    <Button
+        android:id="@+id/ans_C"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="365dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginLeft="27dp"
+        android:backgroundTint="@color/white"
+        android:text="Ans C"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        />
+
+    <Button
+        android:id="@+id/ans_D"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="420dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginLeft="27dp"
+        android:backgroundTint="@color/white"
+        android:text="Ans D"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        />
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/ans_E"-->
+<!--        android:layout_margin="100dp"-->
+<!--        android:backgroundTint="@color/white"-->
+<!--        android:text="Ans A"-->
+<!--        android:textColor="@color/black"-->
+<!--        />-->
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/choice_layout"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:orientation="vertical">-->
+
+<!--    </LinearLayout>-->
+
+
+    <Button
+        android:id="@+id/submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="185dp"
+        android:text="التالي"
+        android:textSize="18dp"
+        app:cornerRadius="20dp" />
+
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <include layout="@layout/activity_menu2" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</RelativeLayout>

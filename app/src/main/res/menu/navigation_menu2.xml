@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<group>
+
+    <item
+        android:id="@+id/menuProfile"
+        android:icon= "@drawable/p_profile"
+        android:title="@string/profile"/>
+
+
+    <item
+        android:id="@+id/menuHome"
+        android:icon= "@drawable/ic_baseline_home_24"
+        android:title="الصفحة الرئيسية"/>
+
+    <item
+        android:id="@+id/menuUs"
+        android:icon= "@drawable/p_us"
+        android:title="@string/p_us"/>
+
+    <item
+        android:id="@+id/menuPositive"
+        android:icon= "@drawable/p_positive"
+        android:title="@string/p_positive"/>
+
+    <item
+        android:id="@+id/menuChat"
+        android:icon= "@drawable/p_chat"
+        android:title="@string/p_chat"/>
+
+    <item
+        android:id="@+id/menuReminder"
+        android:icon= "@drawable/p_reminders"
+        android:title="@string/p_reminder"/>
+
+    <item
+        android:id="@+id/menuُTest"
+        android:icon= "@drawable/p_test"
+        android:title="@string/p_test"/>
+
+    <item
+        android:id="@+id/menuExersice"
+        android:icon= "@drawable/p_exersice"
+        android:title="@string/p_exersice"/>
+
+
+
+
+</group>
+
+
+
+
+
+</menu>

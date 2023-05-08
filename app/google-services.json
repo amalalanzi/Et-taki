@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "898361967425",
+    "firebase_url": "https://et-taki-default-rtdb.firebaseio.com",
+    "project_id": "et-taki",
+    "storage_bucket": "et-taki.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898361967425:android:8eb10b57033db5f89c57c0",
+        "android_client_info": {
+          "package_name": "com.example.ettaki"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "898361967425-6fc334rqhmfbh9a6ps51oa3uksd3plmm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcF8mEZNP2FKPgDrxKPJxH5NJH3R96Gbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "898361967425-6fc334rqhmfbh9a6ps51oa3uksd3plmm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
