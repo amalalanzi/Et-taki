@@ -4,30 +4,36 @@
     package="com.example.ettaki">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ettaki"
         tools:targetApi="31">
-
+        <activity
+            android:name=".chat.MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".chat.UsersChatListActivity"
+            android:exported="false" />
         <activity
             android:name=".profile"
             android:exported="false" />
         <activity
             android:name=".positive"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".reminders"
             android:exported="false" />
         <activity
-            android:name=".chat"
+            android:name=".ChatActivity"
             android:exported="false" />
         <activity
             android:name=".doExercises"
@@ -61,13 +67,14 @@
             android:exported="false" />
         <activity
             android:name=".splash"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

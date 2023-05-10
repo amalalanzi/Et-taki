@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".chat">
+    android:layout_margin="30dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ChatActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/btnDoctorsChat"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="#743E4D"
+        android:text="دردشة مع الاطباء"
+        android:textSize="18sp"
+        app:cornerRadius="20dp" />
+
+    <Button
+        android:id="@+id/btnSupportChat"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="#743E4D"
+        android:text="دردشة مع الداعمين"
+        android:textSize="18sp"
+        app:cornerRadius="20dp" />
+
+    <Button
+        android:id="@+id/btnPatientChat"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="#743E4D"
+        android:text="دردشة مع المرضاء"
+        android:textSize="18sp"
+        app:cornerRadius="20dp" />
+</LinearLayout>
+

@@ -96,7 +96,7 @@ public class MainActivity2 extends AppCompatActivity {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity2.this, chat.class);
+                Intent intent = new Intent(MainActivity2.this, ChatActivity.class);
                 startActivity(intent);
             }
         });
@@ -197,7 +197,7 @@ public class MainActivity2 extends AppCompatActivity {
                         }
 
                         case R.id.menuChat: {
-                            Intent intent = new Intent(getApplicationContext(), chat.class);
+                            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                             startActivity(intent);
                             break;
                         }

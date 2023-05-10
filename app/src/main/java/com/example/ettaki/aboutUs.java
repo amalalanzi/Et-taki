@@ -213,7 +213,7 @@ public class aboutUs extends AppCompatActivity {
                     }
 
                     case R.id.menuChat: {
-                        Intent intent = new Intent(getApplicationContext(), chat.class);
+                        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                         startActivity(intent);
                         break;
                     }

@@ -1,10 +1,14 @@
 package com.example.ettaki;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +25,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +37,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class login extends AppCompatActivity implements View.OnClickListener{
+public class login extends AppCompatActivity {
 
     Button loginv;
     TextView forgotpasswordv, signupv;
@@ -36,14 +45,17 @@ public class login extends AppCompatActivity implements View.OnClickListener{
     DBHelper DB;
     ProgressDialog progressDialog;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mAuth = FirebaseAuth.getInstance();
 
-        if(SharedPrefManager.getInstance(this).isLoggedin()){
+        if (mAuth.getCurrentUser() != null) {
             finish();
-            startActivity(new Intent(this , MainActivity2.class));
+            startActivity(new Intent(this, MainActivity2.class));
         }
 
         loginv = (Button) findViewById(R.id.login);
@@ -54,9 +66,6 @@ public class login extends AppCompatActivity implements View.OnClickListener{
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("فضلِا انتظر....");
-
-
-
 
         /* go to signup page */
         signupv.setOnClickListener(new View.OnClickListener() {
@@ -79,232 +88,120 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         });
 
 
-        loginv.setOnClickListener(this);
-//        loginv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                String email = emailv.getText().toString();
-//                String pass = passwordv.getText().toString();
-//
-//                if(email.equals("")||pass.equals(""))
-//                    Toast.makeText(login.this, " فضلًا أدخل جميع الحقول ", Toast.LENGTH_SHORT).show();
-//                else{
-//                    Boolean checkuserpass = DB.checkusernamepassword(email, pass);
-//                    if(checkuserpass==true){
-//                        Intent intent  = new Intent(getApplicationContext(), ettaki.class);
-//                        startActivity(intent);
-//                    }else{
-//                        Toast.makeText(login.this, " كلمة المرور او البريد الإلكتروني غير صحيح ", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//
-//
-//            }
-//        });
+        loginv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String email = emailv.getText().toString();
+                String pass = passwordv.getText().toString();
+                if (emailv.getText().equals("")) {
+                    emailv.requestFocus();
+                    emailv.setError("يرجى ادخال الايميل");
+                    return;
+                }
+                if (passwordv.getText().equals("")) {
+                    passwordv.requestFocus();
+                    passwordv.setError("يرجى ادخال كلمة المرورو");
+                    return;
+                }
+                if (!isNetworkAvailable()) {
+                    Toast.makeText(login.this, "تحقق من اتصال الانترنت", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    userLogin();
+                }
+
+            }
+        });
 
 
     }
 
 
-    private void userLogin(){
+    private void userLogin() {
 
-         String email = emailv.getText().toString().trim();
-         String password = passwordv.getText().toString().trim();
+        String email = emailv.getText().toString().trim();
+        String password = passwordv.getText().toString().trim();
 
-         progressDialog.show();
-        if(!email.equals("") && !password.equals("")) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_LOGIN, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    progressDialog.dismiss();
-                    try {
-                        JSONObject obj = new JSONObject(response);
-                        if (!obj.getBoolean("error")) {
-                            SharedPrefManager.getInstance(getApplicationContext()).userLogin(
-                                    obj.getInt("id"),
-                                    obj.getString("email"),
-                                    obj.getString("firstName"),
-                                    obj.getString("lastName"),
-                                    obj.getString("type"),
-                                    obj.getString("gender")
-
-                            );
-
+        progressDialog.show();
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(login.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            // Log.d(TAG, "signInWithEmail:success");
+                            Toast.makeText(login.this, "تم تسجيل الدخول", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                             startActivity(new Intent(getApplicationContext(), MainActivity2.class));
 
                         } else {
-                            Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();
+                            // If sign in fails, display a message to the user.
+                            //Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(login.this, "كلمة السر او الايميل خطا", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+
 
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-
-
-                }
-
-
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    Toast.makeText(login.this, error.toString().trim(), Toast.LENGTH_LONG).show();
-
-
-                }
-            }) {
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("email", email);
-                    params.put("password", password);
-                    return params;
-
-                }
-            };
-            RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
-        }else {
-            progressDialog.dismiss();
-
-            Toast.makeText(getApplicationContext(), "جميع الحقول مطلوبة", Toast.LENGTH_LONG).show();
-
-
-        }
-
-//       progressDialog.show();
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_LOGIN,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        progressDialog.dismiss();
-//
-//                        try {
-//                            JSONObject obj = new JSONObject(response);
-//                            if(!obj.getBoolean("error")){
-//                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(
-//                                        obj.getInt("id"),
-//                                        obj.getString("email"),
-//                                        obj.getString("firstName"),
-//                                        obj.getString("lastName"),
-//                                        obj.getString("type"),
-//                                        obj.getString("gender")
-//
-//                                );
-//
-//                                Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح ", Toast.LENGTH_LONG).show();
-//
-//
-//                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
-//
-//                            }else {
-//                                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
-//
-//                            }
-//                        }
-//
-//                        catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//
-//
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                progressDialog.dismiss();
-//                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-//
-//
-//            }
-//        }
-//        ){
-//
-//            @Nullable
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<>();
-//                params.put("email",email);
-//                params.put("password", password);
-//                return params;
-//
-//            }
-//        };
-//
-//        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
-//
-//
-  }
-
-
-  public void test(String x){
-
-      try {
-                            JSONObject obj = new JSONObject(x);
-                            if(!obj.getBoolean("error")){
-
-//                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(
-//                                        obj.getInt("id"),
-//                                        obj.getString("email"),
-//                                        obj.getString("firstName"),
-//                                        obj.getString("lastName"),
-//                                        obj.getString("type"),
-//                                        obj.getString("gender")
-//
-//                                );
-
-                                Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح ", Toast.LENGTH_LONG).show();
-
-
-                             startActivity(new Intent(getApplicationContext(),MainActivity2.class));
-
-                            }else {
-                                Toast.makeText(getApplicationContext(), x, Toast.LENGTH_LONG).show();
-
-                            }
-                        }
-
-      catch (JSONException e) {
-          e.printStackTrace();
-          Toast.makeText(getApplicationContext(), x, Toast.LENGTH_LONG).show();
-
-
-      }
-
-
-
-  }
-
-    @Override
-    public void onClick(View v) {
-        if(v == loginv) {
-            userLogin();
-        }
+                });
     }
+
+    public boolean isNetworkAvailable() {
+        boolean state;
+        try {
+            ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = null;
+            if (manager != null) {
+                {
+                    state = true;
+                    networkInfo = manager.getActiveNetworkInfo();
+                }
+                return networkInfo != null && networkInfo.isConnected();
+            } else {
+                state = false;
+            }
+        } catch (NullPointerException e) {
+            state = false;
+        }
+        return state;
+    }
+
+    public void test(String x) {
+
+        try {
+            JSONObject obj = new JSONObject(x);
+            if (!obj.getBoolean("error")) {
+
+//                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(
+//                                        obj.getInt("id"),
+//                                        obj.getString("email"),
+//                                        obj.getString("firstName"),
+//                                        obj.getString("lastName"),
+//                                        obj.getString("type"),
+//                                        obj.getString("gender")
+//
+//                                );
+
+                Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح ", Toast.LENGTH_LONG).show();
+
+
+                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+
+            } else {
+                Toast.makeText(getApplicationContext(), x, Toast.LENGTH_LONG).show();
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), x, Toast.LENGTH_LONG).show();
+
+
+        }
+
+
+    }
+
+
 }
 
-
-
-
-
-
-
-
-//    private void addDataToFirestore(){
-//        FirebaseFirestore database= FirebaseFirestore.getInstance();
-//        HashMap<String, Object> data = new HashMap<>();
-//        data.put("first name", "amal");
-//        data.put("lastname", "alanzi");
-//        database.collection("users")
-//                .add(data)
-//                .addOnSuccessListener(documentReference -> {
-//                    Toast.makeText(getApplicationContext(), "Data insert", Toast.LENGTH_SHORT).show();
-//                })
-//                .addOnFailureListener(exception -> {
-//                    Toast.makeText(getApplicationContext(), "No Data insert", Toast.LENGTH_SHORT).show();
-//                });
-//
-//    }
