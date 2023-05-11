@@ -1,52 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:weightSum="10"
     tools:context=".chat.MessageActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/message_list"
+    <com.google.android.material.appbar.CollapsingToolbarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout"
-        android:layout_alignParentStart="true" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/md_theme_secondaryContainer">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgProfileChat"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_margin="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_round_person_24" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <TextView
+                android:id="@+id/txtChatName"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:gravity="start|center"
+                android:text="Name"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtOnline"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="start|center"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txtType"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="end"
+            android:text="type"
+            android:layout_margin="8dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:background="@color/md_theme_secondaryContainer"
-        android:weightSum="6">
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/message_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/linearLayout"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/md_theme_secondaryContainer"
+                android:weightSum="6">
+
+                <EditText
+                    android:id="@+id/send_text_message"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="5"
+                    android:backgroundTint="#000000"
+                    android:hint="مراسلة"
+                    android:textColor="#000000"
+                    android:textCursorDrawable="@null" />
+
+                <ImageView
+                    android:id="@+id/message_send_button"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:contentDescription="TODO"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_round_send_24"
+                    app:tint="@color/colorPrimary" />
 
 
-        <EditText
-            android:id="@+id/send_text_message"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="2dp"
-            android:layout_weight="5"
-            android:backgroundTint="#000000"
-            android:textColor="#000000"
-            android:textCursorDrawable="@null" />
+            </LinearLayout>
 
-        <ImageView
-            android:id="@+id/message_send_button"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:contentDescription="TODO"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_round_send_24"
-            app:tint="@color/colorPrimary" />
-
+        </RelativeLayout>
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

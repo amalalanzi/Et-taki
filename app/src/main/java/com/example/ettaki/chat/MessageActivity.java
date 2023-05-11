@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.ettaki.R;
 import com.example.ettaki.chat.adapters.MessageAdapter;
 import com.example.ettaki.chat.models.MessageModel;
@@ -31,6 +33,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -53,6 +57,10 @@ public class MessageActivity extends AppCompatActivity {
     private ImageView sendMessageButton;
     private EditText messageTextBox;
 
+    //toolbar content
+    CircleImageView imgProfileChat;
+    TextView txtChatName, txtOnline, txtType;
+
     //For loading message
     private int itemPos = 0;
     private String mLastKey = "";
@@ -64,22 +72,34 @@ public class MessageActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         senderId = i.getStringExtra("sender_id");
+        String fullName = i.getStringExtra("name");
+        String chatImage = i.getStringExtra("chatImage");
 
-        Toast.makeText(getApplicationContext(),"Chat list",Toast.LENGTH_LONG).show();
+
         //Widget initialization
         //Widget
         sendMessageButton = findViewById(R.id.message_send_button);
         messageTextBox = findViewById(R.id.send_text_message);
+        //toolbar content
+        txtChatName = findViewById(R.id.txtChatName);
+        imgProfileChat = findViewById(R.id.imgProfileChat);
+        txtType = findViewById(R.id.txtType);
+        txtOnline = findViewById(R.id.txtOnline);
+        txtChatName.setText(fullName);
+        Glide.with(imgProfileChat.getContext())
+                .load(chatImage)
+                .centerCrop()
+                .placeholder(R.drawable.loading)
+                .into(imgProfileChat);
 
         //RecyclerView
-
         mAdapter = new MessageAdapter(this, mMessageList);
         mMessageView = findViewById(R.id.message_list);
         mLinearLayout = new LinearLayoutManager(this);
         mMessageView.setHasFixedSize(true);
         mMessageView.setLayoutManager(mLinearLayout);
         mMessageView.getRecycledViewPool().setMaxRecycledViews(0, 0);
-        //loadMessage();
+        loadMessage();
         mMessageView.setAdapter(mAdapter);
         //Firebase init
         //Firebase Auth init
@@ -92,16 +112,17 @@ public class MessageActivity extends AppCompatActivity {
         currentUserID = mAuth.getCurrentUser().getUid();
         mUserRef = FirebaseDatabase.getInstance().getReference().child("User").child(currentUserID);
 
-        // add back arrow to toolbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
         DatabaseReference userInfo = FirebaseDatabase.getInstance().getReference().child("User");
         userInfo.child(senderId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                getSupportActionBar().setTitle(dataSnapshot.child("firstName").getValue().toString());
+                String online = dataSnapshot.child("online").getValue().toString();
+                if (online.equals("true")) {
+                    txtOnline.setText("متصل الان");
+                } else {
+                    txtOnline.setText("غير متصل");
+                }
+                txtType.setText(dataSnapshot.child("type").getValue().toString());
             }
 
             @Override
@@ -268,7 +289,6 @@ public class MessageActivity extends AppCompatActivity {
             mUserRef.child("online").setValue(true);
         }
     }
-
 
     @Override
     public void onStop() {

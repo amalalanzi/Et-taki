@@ -5,15 +5,21 @@
       <map>
         <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/drawable/background_gradient.xml" value="0.1435" />
         <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/drawable/background_gradient_alt.xml" value="0.1435" />
+        <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/drawable/ic_baseline_alternate_email_24.xml" value="0.1" />
+        <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/drawable/ic_baseline_chat_bubble_24.xml" value="0.1" />
+        <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/drawable/ic_round_add_photo_alternate_24.xml" value="0.1" />
+        <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/drawable/onboarding_indicator_active.xml" value="0.1" />
         <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/activity_chat.xml" value="0.17028985507246377" />
+        <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/activity_current_user_chats.xml" value="0.1" />
         <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/activity_login.xml" value="0.17028985507246377" />
         <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/activity_main2.xml" value="0.17028985507246377" />
-        <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/activity_message.xml" value="0.17028985507246377" />
+        <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/activity_message.xml" value="0.15" />
         <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/activity_reminders.xml" value="0.10914855072463768" />
         <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/activity_signup.xml" value="0.17028985507246377" />
         <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/activity_users_chat_list.xml" value="0.17028985507246377" />
         <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/list_item.xml" value="0.17028985507246377" />
         <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/message_single_layout.xml" value="0.10914855072463768" />
+        <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/sample_user_home_message_list.xml" value="0.1" />
         <entry key="..\:/workspace/StudentProject/Android_Project/Ettaki/app/src/main/res/layout/sample_users_chat_list.xml" value="0.1" />
       </map>
     </option>

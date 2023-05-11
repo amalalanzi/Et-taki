@@ -52,6 +52,7 @@ public class UsersListAdapter extends FirebaseRecyclerAdapter<UsersModel, UsersL
                Intent msgActivity = new Intent(holder.mUserName.getContext(), MessageActivity.class);
                msgActivity.putExtra("name", fullName);
                msgActivity.putExtra("sender_id", model.getUserId());
+               msgActivity.putExtra("chatImage",model.getImage());
                holder.itemView.getContext().startActivity(msgActivity);
            });
        }

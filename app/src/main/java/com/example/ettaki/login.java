@@ -53,10 +53,10 @@ public class login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
 
-        if (mAuth.getCurrentUser() != null) {
-            finish();
-            startActivity(new Intent(this, MainActivity2.class));
-        }
+//        if (mAuth.getCurrentUser() != null) {
+//            finish();
+//            startActivity(new Intent(this, MainActivity2.class));
+//        }
 
         loginv = (Button) findViewById(R.id.login);
         signupv = (TextView) findViewById(R.id.signupText);

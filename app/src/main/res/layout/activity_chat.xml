@@ -38,5 +38,14 @@
         android:text="دردشة مع المرضاء"
         android:textSize="18sp"
         app:cornerRadius="20dp" />
+    <Button
+        android:id="@+id/btnCurrentUserChat"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="#743E4D"
+        android:text="الرسائل"
+        android:textSize="18sp"
+        app:cornerRadius="20dp" />
 </LinearLayout>
 
